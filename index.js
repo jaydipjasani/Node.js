@@ -1,21 +1,19 @@
-// Send Response to the browser
 
-const http = require('http');
-http.createServer((req,res)=>{
-    res.write("send response to the browser");
-    res.end();
-}).listen(4500)
+const dbConnection = require('./mongoDB');
 
+// get collection data
+const getData = async () => {
+    let getCollection = await dbConnection()
 
-// Create New File
-const fs = require('fs');
-fs.writeFileSync('first.html',"First file create using writeFileSync")
+    //** Find All data of database */
 
-//Create file in specific folder
+    // let getItems = await getCollection.find().toArray()
 
+    //** Find Selected Item of Database */
 
-const path = require('path');
-const dirPath = path.join(__dirname,'Components')
-fs.writeFileSync(dirPath + '/first.js',"<h1>This is first file created into selected folder</h1>");
+    let getItems = await getCollection.find({ name: 'vivo v7' }).toArray()
+    console.log("ee ", getItems);
+}
 
+getData()
 
